@@ -5,3 +5,7 @@ export type Todo = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TodoId = {
+  todoId: string;
+};

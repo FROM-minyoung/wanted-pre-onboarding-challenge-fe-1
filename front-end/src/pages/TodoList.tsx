@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/customAxios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Todo } from "../type/todo.type";
+import TodoDetail from "./../components/TodoDetail";
 
 /*
 
@@ -30,6 +31,10 @@ export default function TodoList() {
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.currentTarget.value);
   };
+
+  // const movedTodoDetail = (todoId: string) => {
+  //   <TodoDetail todoId={todoId} />;
+  // };
   const todoSubmit = () => {
     api
       .post(
@@ -43,6 +48,7 @@ export default function TodoList() {
       )
       .then(({ data }) => {});
   };
+
   return (
     <div>
       <div>TodoList</div>
@@ -57,9 +63,9 @@ export default function TodoList() {
       <button>삭제</button>
       {todos.map((todo: Todo) => {
         return (
-          <div>
-            <div>{todo.title}</div>
-            <div>{todo.content}</div>
+          <div key={todo.id}>
+            {todo.title}
+            <TodoDetail todoId={todo.id} />
           </div>
         );
       })}
