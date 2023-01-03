@@ -5,8 +5,11 @@ import { Todo } from "../type/todo.type";
 import TodoDetail from "./../components/TodoDetail";
 import { todoStore } from "./../store/todo.store";
 import WriteToDo from "../components/WriteToDo";
+import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function TodoList() {
+  const queryClient = useQueryClient();
   const { title, setTitle, content, setContent } = todoStore();
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -16,15 +19,25 @@ export default function TodoList() {
   const token = localStorage.getItem("key");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    api
-      .get("/todos", {
+  const { refetch } = useQuery(
+    ["Todos"],
+    () =>
+      api.get("/todos", {
         headers: {
           Authorization: `${token}`,
         },
-      })
-      .then(({ data }) => setTodos(data.data));
-  }, []);
+      }),
+    {
+      onSuccess: (data) => {
+        setTodos(data.data.data);
+      },
+      staleTime: 60 * 1000 * 5,
+    }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [todoId, todos, refetch]);
 
   // 로그아웃
   const handleLogout = () => {

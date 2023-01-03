@@ -1,5 +1,7 @@
 import { todoStore } from "./../store/todo.store";
 import api from "./../api/customAxios";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function WriteToDo() {
   const { title, setTitle, content, setContent } = todoStore();
@@ -12,9 +14,9 @@ export default function WriteToDo() {
     setContent(e.currentTarget?.value);
   };
 
-  const todoSubmit = () => {
-    api
-      .post(
+  const todoWriteMutation = useMutation(
+    () =>
+      api.post(
         "/todos",
         { title, content },
         {
@@ -22,11 +24,20 @@ export default function WriteToDo() {
             Authorization: `${token}`,
           },
         }
-      )
-      .then(() => {
+      ),
+    {
+      onSuccess: ({ data }) => {
         setTitle("");
         setContent("");
-      });
+      },
+      onError: ({ response }) => {
+        alert(response.data.details);
+      },
+    }
+  );
+
+  const todoSubmit = () => {
+    todoWriteMutation.mutate();
   };
 
   return (

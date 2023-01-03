@@ -2,34 +2,56 @@ import { useEffect, useState } from "react";
 import { TodoId } from "../type/todo.type";
 import api from "./../api/customAxios";
 import { Todo } from "./../../../back-end/types/todos";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function TodoDetail({ todoId }: TodoId) {
   const token = localStorage.getItem("key");
   const [todoDetail, setTodoDetail] = useState<Todo>();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    api
-      .get(`/todos/${todoId}`, {
+  const { refetch } = useQuery(
+    ["TodosDetail"],
+    () =>
+      api.get(`/todos/${todoId}`, {
         headers: {
           Authorization: `${token}`,
         },
-      })
-      .then(({ data }) => setTodoDetail(data.data));
-  }, []);
+      }),
+    {
+      onSuccess: (data) => {
+        setTodoDetail(data.data.data);
+      },
+      staleTime: 60 * 1000 * 5,
+    }
+  );
+
+  // id가 변할때마다 refetch 되게하기
+  useEffect(() => {
+    refetch();
+  }, [todoId, refetch]);
 
   // 삭제
-  const deleteTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const todoDeleteMutation = useMutation(
+    () =>
+      api.delete(`/todos/${todoId}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      }),
+    {
+      onSuccess: () => {
+        alert("삭제되었습니다.");
+      },
+    }
+  );
+
+  const deleteTodo = () => {
     const answer = window.confirm(
       "삭제하시겠습니까? \n삭제한 할일은 복구할 수 없습니다."
     );
     if (answer) {
-      api
-        .delete(`/todos/${e.currentTarget.id}`, {
-          headers: {
-            Authorization: `${token}`,
-          },
-        })
-        .then((res) => alert("삭제되었습니다."));
+      todoDeleteMutation.mutate();
     }
   };
 

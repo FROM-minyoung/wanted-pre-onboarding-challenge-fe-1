@@ -2,24 +2,31 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import api from "./../api/customAxios";
 import { mainButtonStyle, mainInputStyle } from "../styles/input.style";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
 
-  const login = () => {
-    api
-      .post("/users/login", {
+  const loginMutation = useMutation(
+    () =>
+      api.post("/users/login", {
         email: emailRef.current?.value,
         password: pwRef.current?.value,
-      })
-      .then(({ data }) => {
+      }),
+    {
+      onSuccess: ({ data }) => {
         localStorage.setItem("key", data.token);
         alert(data.message);
-      })
-      .catch(({ response }) => {
+      },
+      onError: ({ response }) => {
         alert(response.data.details);
-      });
+      },
+    }
+  );
+
+  const login = () => {
+    loginMutation.mutate();
   };
 
   return (
