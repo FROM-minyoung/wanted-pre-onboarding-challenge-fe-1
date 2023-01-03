@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import api from "./../api/customAxios";
-import { mainInputStyle } from "../styles/input.style";
+import { mainButtonStyle, mainInputStyle } from "../styles/input.style";
 
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -36,11 +36,13 @@ export default function Login() {
         placeholder="비밀번호를 입력하세요"
         className={mainInputStyle}
       />
-      <div className="flex justify-around text-sm mt-3">
-        <button onClick={login} disabled={false}>
+      <div className="flex justify-around">
+        <button onClick={login} disabled={false} className={mainButtonStyle}>
           로그인
         </button>
-        <Link to="/signup">회원가입</Link>
+        <Link to="/signup" className={mainButtonStyle}>
+          회원가입
+        </Link>
       </div>
     </div>
   );
