@@ -56,30 +56,28 @@ export default function TodoList() {
   };
 
   return (
-    <div className="max-w-screen-lg mt-52 m-auto">
-      <div className="h-[700px] border border-solid border-gray-700">
-        <div>
-          <div>TodoList</div>
-          <button onClick={handleLogout}>로그아웃</button>
-          <button onClick={() => setWriteState(!writeState)}>글쓰기</button>
-          <div hidden={writeState}>
-            <WriteToDo />
-          </div>
-          <button onClick={todoSubmit}>추가</button>
-          <button>삭제</button>
-          {todos.map((todo: Todo) => {
-            return (
-              <div key={todo.id}>
-                <div id={todo.id} onClick={changeState}>
-                  {todo.title}
-                </div>
-                <div id={todo.id} hidden={detailState}>
-                  <TodoDetail todoId={todo.id} />
-                </div>
-              </div>
-            );
-          })}
+    <div className="max-w-screen-lg">
+      <div className="w-[1024px] h-[700px] border border-solid border-gray-700">
+        <div>TodoList</div>
+        <button onClick={handleLogout}>로그아웃</button>
+        <button onClick={() => setWriteState(!writeState)}>글쓰기</button>
+        <div hidden={writeState}>
+          <WriteToDo />
         </div>
+        <button onClick={todoSubmit}>추가</button>
+        <button>삭제</button>
+        {todos.map((todo: Todo) => {
+          return (
+            <div key={todo.id}>
+              <div id={todo.id} onClick={changeState}>
+                {todo.title}
+              </div>
+              <div id={todo.id} hidden={detailState}>
+                <TodoDetail todoId={todo.id} />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
