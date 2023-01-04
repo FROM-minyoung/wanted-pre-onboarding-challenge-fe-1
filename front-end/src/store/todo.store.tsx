@@ -20,3 +20,17 @@ export const todoStore = create<TodoState>((set) => ({
       content: userContent,
     }),
 }));
+
+// write store
+interface WriteState {
+  writeState: boolean;
+  setWriteState: (writeState: boolean) => void;
+}
+
+export const writeStore = create<WriteState>((set) => ({
+  writeState: false,
+  setWriteState: (writeState) =>
+    set({
+      writeState,
+    }),
+}));

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import api from "../api/customAxios";
 import { useNavigate } from "react-router-dom";
 import { Todo } from "../type/todo.type";
-import { todoStore } from "../store/todo.store";
-import WriteToDo from "./WriteToDo";
-import { useQuery } from "@tanstack/react-query";
+import { todoStore, writeStore } from "../store/todo.store";
+import WriteToDo from "../pages/WriteToDo";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-export default function TodoList({ writeState }: { writeState: boolean }) {
-  const { title, setTitle, content, setContent } = todoStore();
+export default function TodoList() {
+  const { setWriteState } = writeStore();
+  const queryClient = useQueryClient();
+
+  queryClient.invalidateQueries(["Todos"]);
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -36,14 +39,12 @@ export default function TodoList({ writeState }: { writeState: boolean }) {
   }, [todos, token, refetch]);
 
   const changeState = (e: React.MouseEvent<HTMLLIElement>) => {
+    setWriteState(false);
     navigate(`/todolist/${e.currentTarget?.id}`);
   };
 
   return (
-    <div className="w-[250px] px-5 py-5 text-center">
-      <div hidden={writeState}>
-        <WriteToDo />
-      </div>
+    <div className="min-w-[230px] px-5 py-5 text-center">
       <div className="mb-3">할 일</div>
       <ul>
         {todos.map((todo: Todo) => {

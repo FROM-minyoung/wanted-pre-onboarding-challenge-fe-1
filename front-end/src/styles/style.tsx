@@ -6,3 +6,5 @@ export const mainButtonStyle =
 
 export const screenStyle =
   "max-w-screen-lg mt-52 m-auto flex flex-col items-center";
+
+export const hoberButtonStyle = "hover:underline";
