@@ -14,7 +14,7 @@ export default function TodoEdit() {
   const { editTitie, editContent, setEditTitle, setEditContent } = todoStore();
   const { setEditState } = editStore();
 
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   //   const todosData = queryClient.getQueryData(["TodosDetail"]);
 
   //   console.log(todosData);
@@ -67,6 +67,7 @@ export default function TodoEdit() {
       onSuccess: ({ data }) => {
         setEditState(false);
         navigate(`/todolist/${data.data.id}`);
+        queryClient.invalidateQueries(["Todos"]);
       },
       onError: ({ response }) => {
         alert(response.data.details);

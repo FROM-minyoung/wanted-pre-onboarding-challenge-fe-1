@@ -1,11 +1,13 @@
 import { todoStore, writeStore } from "../store/todo.store";
 import api from "../api/customAxios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
 
 export default function WriteToDo() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { title, setTitle, content, setContent } = todoStore();
   const { setWriteState } = writeStore();
 
@@ -35,6 +37,7 @@ export default function WriteToDo() {
         setContent("");
         setWriteState(false);
         navigate(`/todolist/${data.data.id}`);
+        queryClient.invalidateQueries(["Todos"]);
       },
       onError: ({ response }) => {
         alert(response.data.details);
