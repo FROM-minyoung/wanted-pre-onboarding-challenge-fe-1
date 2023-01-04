@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/todos" element={<TodoList />} />
+          <Route path="/todolist" element={<TodoList />} />
         </Routes>
       </div>
       <ReactQueryDevtools initialIsOpen={false} />

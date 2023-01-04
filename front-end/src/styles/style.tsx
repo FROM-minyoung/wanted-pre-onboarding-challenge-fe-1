@@ -3,3 +3,6 @@ export const mainInputStyle =
 
 export const mainButtonStyle =
   "text-sm mt-3 px-2 py-1.5 rounded-lg hover:bg-gray-200 transition duration-200";
+
+export const screenStyle =
+  "max-w-screen-lg mt-52 m-auto flex flex-col items-center";

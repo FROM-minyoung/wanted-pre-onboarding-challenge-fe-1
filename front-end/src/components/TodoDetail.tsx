@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { TodoId } from "../type/todo.type";
 import api from "./../api/customAxios";
 import { Todo } from "./../../../back-end/types/todos";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 export default function TodoDetail({ todoId }: TodoId) {
   const token = localStorage.getItem("key");
   const [todoDetail, setTodoDetail] = useState<Todo>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const { refetch } = useQuery(
+  const { refetch, isError, remove } = useQuery(
     ["TodosDetail"],
     () =>
       api.get(`/todos/${todoId}`, {
@@ -23,6 +24,7 @@ export default function TodoDetail({ todoId }: TodoId) {
         setTodoDetail(data.data.data);
       },
       staleTime: 60 * 1000 * 5,
+      retry: false,
     }
   );
 
@@ -42,6 +44,7 @@ export default function TodoDetail({ todoId }: TodoId) {
     {
       onSuccess: () => {
         alert("삭제되었습니다.");
+        refetch();
       },
     }
   );
@@ -57,22 +60,26 @@ export default function TodoDetail({ todoId }: TodoId) {
 
   return (
     <div className="px-3 py-5">
-      <section className="flex justify-between">
-        <div className="text-[30px]">{todoDetail?.title}</div>
+      {isError ? null : (
+        <>
+          <section className="flex justify-between">
+            <div className="text-[30px]">{todoDetail?.title}</div>
 
-        <div className="flex items-end">
-          <button className="text-sm text-gray-900 mr-3">수정</button>
-          <button
-            id={todoId}
-            onClick={deleteTodo}
-            className="text-sm text-gray-400 mr-3"
-          >
-            삭제
-          </button>
-        </div>
-      </section>
-      <div className="text-xs">{todoDetail?.createdAt.split("T")[0]}</div>
-      <div className="mt-7">{todoDetail?.content}</div>
+            <div className="flex items-end">
+              <button className="text-sm text-gray-900 mr-3">수정</button>
+              <button
+                id={todoId}
+                onClick={deleteTodo}
+                className="text-sm text-gray-400 mr-3"
+              >
+                삭제
+              </button>
+            </div>
+          </section>
+          <div className="text-xs">{todoDetail?.createdAt.split("T")[0]}</div>
+          <div className="mt-7">{todoDetail?.content}</div>
+        </>
+      )}
     </div>
   );
 }

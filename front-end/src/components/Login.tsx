@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import api from "./../api/customAxios";
-import { mainButtonStyle, mainInputStyle } from "../styles/input.style";
+import { mainButtonStyle, mainInputStyle } from "../styles/style";
 import { useMutation } from "@tanstack/react-query";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const emailRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
 
@@ -27,6 +29,7 @@ export default function Login() {
 
   const login = () => {
     loginMutation.mutate();
+    navigate("/todolist");
   };
 
   return (

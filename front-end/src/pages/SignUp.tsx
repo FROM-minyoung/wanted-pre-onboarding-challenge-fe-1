@@ -1,7 +1,7 @@
 import api from "./../api/customAxios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { mainInputStyle } from "../styles/input.style";
+import { mainInputStyle } from "../styles/style";
 
 export default function SignUp() {
   const navigate = useNavigate();

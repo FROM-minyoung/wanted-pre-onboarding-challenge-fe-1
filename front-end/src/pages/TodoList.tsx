@@ -6,10 +6,9 @@ import TodoDetail from "./../components/TodoDetail";
 import { todoStore } from "./../store/todo.store";
 import WriteToDo from "../components/WriteToDo";
 import { useQuery } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
+import { screenStyle } from "./../styles/style";
 
 export default function TodoList() {
-  const queryClient = useQueryClient();
   const { title, setTitle, content, setContent } = todoStore();
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -32,12 +31,13 @@ export default function TodoList() {
         setTodos(data.data.data);
       },
       staleTime: 60 * 1000 * 5,
+      refetchOnWindowFocus: "always",
     }
   );
 
   useEffect(() => {
     refetch();
-  }, [todoId, todos, refetch]);
+  }, [todoId, todos, token, refetch]);
 
   // 로그아웃
   const handleLogout = () => {
@@ -53,7 +53,8 @@ export default function TodoList() {
   };
 
   return (
-    <div className="max-w-screen-lg">
+    <div className={screenStyle}>
+      <div className="text-[50px] mb-5">T O D O</div>
       <div className="flex justify-center gap-4 mb-4">
         <button onClick={handleLogout} className="hover:underline">
           로그아웃
@@ -67,25 +68,22 @@ export default function TodoList() {
       </div>
       <div className="w-[800px] h-[500px] flex gap-4 border border-solid border-gray-700">
         <div className="w-[250px] px-5 py-5 text-center">
-          {writeState ? (
+          <div hidden={writeState}>
             <WriteToDo />
-          ) : (
-            <>
-              <div className="mb-3">할 일</div>
-              {todos.map((todo: Todo) => {
-                return (
-                  <div
-                    key={todo.id}
-                    id={todo.id}
-                    onClick={changeState}
-                    className="flex justify-between hover:underline cursor-pointer mb-3"
-                  >
-                    {todo.title}
-                  </div>
-                );
-              })}
-            </>
-          )}
+          </div>
+          <div className="mb-3">할 일</div>
+          {todos.map((todo: Todo) => {
+            return (
+              <div
+                key={todo.id}
+                id={todo.id}
+                onClick={changeState}
+                className="flex justify-between hover:underline cursor-pointer mb-3"
+              >
+                {todo.title}
+              </div>
+            );
+          })}
         </div>
         <div className="my-5 border-r-[1px] border-black"></div>
         {todoId && (
