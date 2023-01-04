@@ -48,7 +48,7 @@ export default function WriteToDo() {
 
   return (
     <div className="flex flex-col">
-      <section className="px-5 py-7">
+      <section className="px-3 py-5">
         <input
           type="text"
           value={title}

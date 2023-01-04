@@ -6,6 +6,8 @@ import TodoList from "./../components/TodoList";
 import { hoberButtonStyle, screenStyle } from "../styles/style";
 
 import { writeStore } from "../store/todo.store";
+import { editStore } from "./../store/todo.store";
+import TodoEdit from "../components/TodoEdit";
 
 export default function TodoLayout() {
   const { id } = useParams();
@@ -13,6 +15,7 @@ export default function TodoLayout() {
 
   // const [writeState, setWriteState] = useState(false);
   const { writeState, setWriteState } = writeStore();
+  const { editState } = editStore();
 
   // 로그아웃
   const handleLogout = () => {
@@ -48,7 +51,13 @@ export default function TodoLayout() {
         </div>
         <div className="my-5 border-r-[1px] border-black"></div>
         <div className="flex-auto">
-          {writeState ? <WriteToDo /> : id ? <TodoDetail /> : null}
+          {writeState ? (
+            <WriteToDo />
+          ) : editState ? (
+            <TodoEdit />
+          ) : id ? (
+            <TodoDetail />
+          ) : null}
         </div>
       </div>
     </div>

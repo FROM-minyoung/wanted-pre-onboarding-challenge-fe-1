@@ -5,9 +5,12 @@ import { Todo } from "../type/todo.type";
 import { todoStore, writeStore } from "../store/todo.store";
 import WriteToDo from "../pages/WriteToDo";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { editStore } from "./../store/todo.store";
 
 export default function TodoList() {
   const { setWriteState } = writeStore();
+  const { setEditState } = editStore();
+
   const queryClient = useQueryClient();
 
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -36,30 +39,29 @@ export default function TodoList() {
     refetch();
   }, [todos, refetch]);
 
-  const changeState = (e: React.MouseEvent<HTMLLIElement>) => {
+  const changeState = (e: React.MouseEvent<HTMLDivElement>) => {
     setWriteState(false);
+    setEditState(false);
     navigate(`/todolist/${e.currentTarget?.id}`);
   };
 
   return (
-    <div className="px-5 py-5 text-center">
+    <div className="pl-5 py-5 text-center">
       <div className="mb-3">할 일</div>
-      <ul>
-        {todos.map((todo: Todo) => {
-          return (
-            <li
-              key={todo.id}
-              id={todo.id}
-              onClick={changeState}
-              className="flex justify-between hover:underline mb-3"
-            >
-              {todo.title.length >= 15
-                ? `${todo.title.slice(0, 14)}...`
-                : todo.title.length}
-            </li>
-          );
-        })}
-      </ul>
+      {todos.map((todo: Todo) => {
+        return (
+          <div
+            key={todo.id}
+            id={todo.id}
+            onClick={changeState}
+            className="flex justify-between hover:underline mb-3"
+          >
+            {todo.title.length >= 15
+              ? `${todo.title.slice(0, 14)}...`
+              : todo.title}
+          </div>
+        );
+      })}
     </div>
   );
 }

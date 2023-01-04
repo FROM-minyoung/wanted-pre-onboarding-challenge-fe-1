@@ -20,6 +20,8 @@ function App() {
           <Route path="/todolist" element={<TodoLayout />} />
           <Route path="/write" element={<TodoLayout />} />
           <Route path="/todolist/:id" element={<TodoLayout />} />
+          <Route path="/update/:id" element={<TodoLayout />} />
+
           {/* <Route path="*" element={<404 페이지 넣기/>} /> */}
         </Routes>
       </div>

@@ -4,10 +4,13 @@ import { Todo } from "./../../../back-end/types/todos";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
+import { editStore } from "./../store/todo.store";
 
 export default function TodoDetail() {
   const token = localStorage.getItem("key");
   const [todoDetail, setTodoDetail] = useState<Todo>();
+  const { setEditState } = editStore();
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -64,7 +67,13 @@ export default function TodoDetail() {
         <div className="text-[30px] w-96">{todoDetail?.title}</div>
 
         <div className="flex items-end">
-          <button className={`${hoberButtonStyle} text-sm text-gray-900 mr-3`}>
+          <button
+            onClick={() => {
+              setEditState(true);
+              navigate(`/update/${id}`);
+            }}
+            className={`${hoberButtonStyle} text-sm text-gray-900 mr-3`}
+          >
             수정
           </button>
           <button
