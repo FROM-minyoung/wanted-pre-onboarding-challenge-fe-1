@@ -5,8 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Main from "./pages/Main";
-import TodoList from "./pages/TodoList";
+import TodoLayout from "./pages/TodoLayout";
 import SignUp from "./pages/SignUp";
+import TodoDetail from "./components/TodoDetail";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/todolist" element={<TodoList />} />
+          <Route path="/todolist" element={<TodoLayout />} />
+          <Route path="/todolist/:id" element={<TodoLayout />} />
         </Routes>
       </div>
       <ReactQueryDevtools initialIsOpen={false} />

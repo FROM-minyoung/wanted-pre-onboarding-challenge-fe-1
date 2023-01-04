@@ -20,5 +20,3 @@ export const todoStore = create<TodoState>((set) => ({
       content: userContent,
     }),
 }));
-
-// write store
