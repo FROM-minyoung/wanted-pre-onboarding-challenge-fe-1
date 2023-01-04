@@ -60,7 +60,7 @@ export default function WriteToDo() {
           value={content}
           onChange={handleContent}
           placeholder="내용"
-          className="w-[95%] h-56 resize-none"
+          className="w-[95%] h-56 none resize-none"
         />
       </section>
       <section className="flex justify-center gap-5">

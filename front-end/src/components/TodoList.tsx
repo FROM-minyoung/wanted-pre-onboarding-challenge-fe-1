@@ -10,8 +10,6 @@ export default function TodoList() {
   const { setWriteState } = writeStore();
   const queryClient = useQueryClient();
 
-  queryClient.invalidateQueries(["Todos"]);
-
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const token = localStorage.getItem("key");
@@ -36,7 +34,7 @@ export default function TodoList() {
 
   useEffect(() => {
     refetch();
-  }, [todos, token, refetch]);
+  }, [todos, refetch]);
 
   const changeState = (e: React.MouseEvent<HTMLLIElement>) => {
     setWriteState(false);
@@ -44,7 +42,7 @@ export default function TodoList() {
   };
 
   return (
-    <div className="min-w-[230px] px-5 py-5 text-center">
+    <div className="px-5 py-5 text-center">
       <div className="mb-3">할 일</div>
       <ul>
         {todos.map((todo: Todo) => {
@@ -55,7 +53,9 @@ export default function TodoList() {
               onClick={changeState}
               className="flex justify-between hover:underline mb-3"
             >
-              {todo.title}
+              {todo.title.length >= 15
+                ? `${todo.title.slice(0, 14)}...`
+                : todo.title.length}
             </li>
           );
         })}

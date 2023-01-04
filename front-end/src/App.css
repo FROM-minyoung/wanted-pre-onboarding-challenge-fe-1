@@ -1,3 +1,16 @@
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+div::-webkit-scrollbar {
+  width: 10px;
+}
+div::-webkit-scrollbar-thumb {
+  background-color: #7d919a;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+div::-webkit-scrollbar-track {
+  border-radius: 10px;
+}

@@ -3,6 +3,7 @@ import api from "./../api/customAxios";
 import { Todo } from "./../../../back-end/types/todos";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import { hoberButtonStyle } from "../styles/style";
 
 export default function TodoDetail() {
   const token = localStorage.getItem("key");
@@ -60,11 +61,16 @@ export default function TodoDetail() {
   return (
     <div className="px-3 py-5">
       <section className="flex justify-between">
-        <div className="text-[30px]">{todoDetail?.title}</div>
+        <div className="text-[30px] w-96">{todoDetail?.title}</div>
 
         <div className="flex items-end">
-          <button className="text-sm text-gray-900 mr-3">수정</button>
-          <button onClick={deleteTodo} className="text-sm text-gray-400 mr-3">
+          <button className={`${hoberButtonStyle} text-sm text-gray-900 mr-3`}>
+            수정
+          </button>
+          <button
+            onClick={deleteTodo}
+            className={`${hoberButtonStyle} text-sm text-gray-400 mr-3`}
+          >
             삭제
           </button>
         </div>

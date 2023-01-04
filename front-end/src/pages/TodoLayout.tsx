@@ -43,7 +43,9 @@ export default function TodoLayout() {
         </button>
       </div>
       <div className="w-[800px] h-[550px] flex gap-4 border border-solid border-gray-700">
-        <TodoList />
+        <div className="min-w-[230px] overflow-y-scroll">
+          <TodoList />
+        </div>
         <div className="my-5 border-r-[1px] border-black"></div>
         <div className="flex-auto">
           {writeState ? <WriteToDo /> : id ? <TodoDetail /> : null}
