@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wanted-pre-onboarding-challenge-fe-1/static/css/main.61c0728d.css",
+    "main.js": "/wanted-pre-onboarding-challenge-fe-1/static/js/main.b0b78bc8.js",
+    "index.html": "/wanted-pre-onboarding-challenge-fe-1/index.html",
+    "main.61c0728d.css.map": "/wanted-pre-onboarding-challenge-fe-1/static/css/main.61c0728d.css.map",
+    "main.b0b78bc8.js.map": "/wanted-pre-onboarding-challenge-fe-1/static/js/main.b0b78bc8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.61c0728d.css",
+    "static/js/main.b0b78bc8.js"
+  ]
+}
