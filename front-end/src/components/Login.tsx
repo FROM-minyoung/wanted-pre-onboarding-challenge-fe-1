@@ -1,25 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useState } from "react";
 import api from "./../api/customAxios";
 import { mainButtonStyle, mainInputStyle } from "../styles/style";
 import { useMutation } from "@tanstack/react-query";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const emailRef = useRef<HTMLInputElement>(null);
-  const pwRef = useRef<HTMLInputElement>(null);
+  const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value);
+  };
+
+  const changePW = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
+  };
 
   const loginMutation = useMutation(
     () =>
       api.post("/users/login", {
-        email: emailRef.current?.value,
-        password: pwRef.current?.value,
+        email,
+        password,
       }),
     {
       onSuccess: ({ data }) => {
         localStorage.setItem("key", data.token);
         alert(data.message);
+        navigate("/todolist");
       },
       onError: ({ response }) => {
         alert(response.data.details);
@@ -29,20 +37,21 @@ export default function Login() {
 
   const login = () => {
     loginMutation.mutate();
-    navigate("/todolist");
   };
 
   return (
     <div>
       <input
         type="email"
-        ref={emailRef}
+        value={email}
+        onChange={changeEmail}
         placeholder="이메일을 입력하세요"
         className={mainInputStyle}
       />
       <input
         type="password"
-        ref={pwRef}
+        value={password}
+        onChange={changePW}
         placeholder="비밀번호를 입력하세요"
         className={mainInputStyle}
       />
