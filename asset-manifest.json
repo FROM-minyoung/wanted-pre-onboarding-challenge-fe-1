@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/wanted-pre-onboarding-challenge-fe-1/static/css/main.61c0728d.css",
-    "main.js": "/wanted-pre-onboarding-challenge-fe-1/static/js/main.ccc98673.js",
+    "main.js": "/wanted-pre-onboarding-challenge-fe-1/static/js/main.908bf05e.js",
     "index.html": "/wanted-pre-onboarding-challenge-fe-1/index.html",
     "main.61c0728d.css.map": "/wanted-pre-onboarding-challenge-fe-1/static/css/main.61c0728d.css.map",
-    "main.ccc98673.js.map": "/wanted-pre-onboarding-challenge-fe-1/static/js/main.ccc98673.js.map"
+    "main.908bf05e.js.map": "/wanted-pre-onboarding-challenge-fe-1/static/js/main.908bf05e.js.map"
   },
   "entrypoints": [
     "static/css/main.61c0728d.css",
-    "static/js/main.ccc98673.js"
+    "static/js/main.908bf05e.js"
   ]
 }
