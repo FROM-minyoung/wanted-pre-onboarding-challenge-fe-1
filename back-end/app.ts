@@ -15,9 +15,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors());
+// app.use(cors());
 
-// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 // app.use(
 //   cors({
 //     origin: "https://from-minyoung.github.io", // 접근 권한을 부여하는 도메인

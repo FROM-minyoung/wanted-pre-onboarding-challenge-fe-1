@@ -1,22 +1,39 @@
 import api from "./../api/customAxios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { mainInputStyle } from "../styles/style";
+import {
+  mainInputStyle,
+  correctInputStyle,
+  incorrectInputStyle,
+} from "../styles/style";
 
 export default function SignUp() {
+  const emailReg = /^[a-zA-Z0-9+-_.]+@[a-z]+\.+[a-z]+$/g;
+
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string | undefined>("");
-  const [password, setPassword] = useState<string | undefined>("");
+  const [email, setEmail] = useState<string>("");
+  const [emailBoolean, setEmailBoolean] = useState(false);
+  const [password, setPassword] = useState<string>("");
+  const [pwBoolean, setPwBoolean] = useState(false);
 
   const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
+    if (emailReg.test(e.currentTarget.value)) {
+      setEmailBoolean(true);
+    } else {
+      setEmailBoolean(false);
+    }
   };
   const changePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
+    if (e.currentTarget.value?.length >= 8) {
+      setPwBoolean(true);
+    } else {
+      setPwBoolean(false);
+    }
   };
 
   const SubmitUserInformation = () => {
-    console.log(email, password);
     api
       .post("/users/create", { email, password })
       .then(({ data }) => {
@@ -42,9 +59,21 @@ export default function SignUp() {
               value={email}
               onChange={changeEmail}
               placeholder="example@example.com"
-              className={mainInputStyle}
+              className={
+                email === ""
+                  ? mainInputStyle
+                  : emailBoolean
+                  ? correctInputStyle
+                  : incorrectInputStyle
+              }
             />
           </div>
+          {!emailBoolean ? (
+            <span className="text-left text-xs ml-14">
+              이메일 형식에 맞게 입력해주세요.
+            </span>
+          ) : null}
+
           <div className="flex items-center">
             <span className="w-16 text-sm">비밀번호</span>
             <input
@@ -52,13 +81,25 @@ export default function SignUp() {
               value={password}
               onChange={changePw}
               placeholder="8자 이상 입력해주세요"
-              className={mainInputStyle}
+              className={
+                password === ""
+                  ? mainInputStyle
+                  : pwBoolean
+                  ? correctInputStyle
+                  : incorrectInputStyle
+              }
             />
           </div>
+          {!pwBoolean ? (
+            <span className="text-left text-xs ml-16">
+              비밀번호는 8자 이상 입력해주세요.
+            </span>
+          ) : null}
         </div>
         <button
           onClick={SubmitUserInformation}
-          className="text-sm mt-3 px-2 py-1.5 rounded-lg hover:bg-gray-200 transition duration-200"
+          className="text-sm mt-3 px-2 py-1.5 rounded-lg transition duration-200 disabled:text-gray-400"
+          disabled={!emailBoolean || !pwBoolean}
         >
           가입하기
         </button>
