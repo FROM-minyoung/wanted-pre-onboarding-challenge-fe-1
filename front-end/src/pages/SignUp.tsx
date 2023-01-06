@@ -38,7 +38,6 @@ export default function SignUp() {
       .post("/users/create", { email, password })
       .then(({ data }) => {
         alert(data.message);
-        localStorage.setItem("key", data.token);
         navigate("/");
       })
       .catch((err) => {
