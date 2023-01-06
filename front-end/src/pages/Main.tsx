@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Login from "../components/Login";
 import TodoLayout from "../pages/TodoLayout";
 import { screenStyle } from "./../styles/style";
