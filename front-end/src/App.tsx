@@ -1,14 +1,12 @@
-import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Main from "./pages/Main";
-import TodoLayout from "./components/TodoLayout";
-import WriteToDoPage from "./pages/WriteToDo";
-
 import SignUp from "./pages/SignUp";
+
+import WriteToDoPage from "./pages/WriteToDo";
 import DetailToDoPage from "./pages/TodoDetail";
 import UpdateToDoPage from "./pages/EditTodo";
 
@@ -21,7 +19,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* <Route path="/todolist" element={<TodoLayout />} /> */}
           <Route path="/write" element={<WriteToDoPage />} />
           <Route path="/todolist/:id" element={<DetailToDoPage />} />
           <Route path="/update/:id" element={<UpdateToDoPage />} />

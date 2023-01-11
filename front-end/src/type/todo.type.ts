@@ -9,3 +9,7 @@ export type Todo = {
 export type TodoId = {
   todoId: string;
 };
+
+export type FormType = {
+  component?: () => JSX.Element;
+};

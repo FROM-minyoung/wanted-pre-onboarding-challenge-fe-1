@@ -1,14 +1,11 @@
-import { useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import TodoList from "./TodoList";
-import { hoberButtonStyle, screenStyle } from "../styles/style";
-
-type FormType = {
-  component?: () => JSX.Element;
-};
+import { hoberButtonStyle } from "../styles/style";
+import { FormType } from "../type/todo.type";
+import { loginStore } from "../store/todo.store";
 
 export default function TodoLayout({ component }: FormType) {
-  const { id } = useParams();
+  const { setLogin } = loginStore();
   const navigate = useNavigate();
 
   // 로그아웃
@@ -16,6 +13,7 @@ export default function TodoLayout({ component }: FormType) {
     const answer = window.confirm("로그아웃 하시겠습니까?");
     if (answer) {
       localStorage.removeItem("key");
+      setLogin(false);
       navigate("/");
     }
   };
@@ -23,7 +21,7 @@ export default function TodoLayout({ component }: FormType) {
   return (
     <div className="max-w-screen-lg mt-28 m-auto flex flex-col items-center">
       <div className="text-[50px] mb-5">
-        <Link to={"/todolist"}>T O D O</Link>
+        <Link to="/">T O D O</Link>
       </div>
       <div className="flex justify-center gap-4 mb-4">
         <button onClick={handleLogout} className={hoberButtonStyle}>

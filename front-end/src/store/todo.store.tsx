@@ -1,5 +1,19 @@
 import create from "zustand";
 
+// login store
+interface loginState {
+  login: boolean;
+  setLogin: (login: boolean) => void;
+}
+
+export const loginStore = create<loginState>((set) => ({
+  login: false,
+  setLogin: (login) =>
+    set({
+      login,
+    }),
+}));
+
 // todo store
 interface TodoState {
   title?: string | undefined;
