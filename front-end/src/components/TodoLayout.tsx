@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import TodoDetail from "../components/TodoDetail";
-import WriteToDo from "./WriteToDo";
-import TodoList from "./../components/TodoList";
+import TodoDetail from "./TodoDetail";
+import WriteToDo from "../pages/WriteToDo";
+import TodoList from "./TodoList";
 import { hoberButtonStyle, screenStyle } from "../styles/style";
 
 import { writeStore } from "../store/todo.store";
-import { editStore } from "./../store/todo.store";
-import TodoEdit from "../components/TodoEdit";
+import { editStore } from "../store/todo.store";
+// import TodoEdit from "../pages/TodoEdit";
 
-export default function TodoLayout() {
+type FormType = {
+  component: () => JSX.Element;
+};
+
+export default function TodoLayout({ component }: FormType) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -51,13 +55,14 @@ export default function TodoLayout() {
         </div>
         <div className="my-5 border-r-[1px] border-black"></div>
         <div className="flex-auto">
-          {writeState ? (
+          {/* {writeState ? (
             <WriteToDo />
           ) : editState ? (
             <TodoEdit />
           ) : id ? (
             <TodoDetail />
-          ) : null}
+          ) : null} */}
+          {component()}
         </div>
       </div>
     </div>

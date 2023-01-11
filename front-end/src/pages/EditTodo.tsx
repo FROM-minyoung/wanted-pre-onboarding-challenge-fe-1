@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import api from "./../api/customAxios";
-import { Todo } from "./../../../back-end/types/todos";
+import api from "../api/customAxios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
-import { editStore, todoStore } from "./../store/todo.store";
+import { editStore, todoStore } from "../store/todo.store";
 
 export default function TodoEdit() {
   const token = localStorage.getItem("key");
-  const [todoDetail, setTodoDetail] = useState<Todo>();
   const navigate = useNavigate();
   const { id } = useParams();
   const { editTitie, editContent, setEditTitle, setEditContent } = todoStore();

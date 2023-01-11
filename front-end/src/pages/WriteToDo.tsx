@@ -3,8 +3,9 @@ import api from "../api/customAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
+import TodoLayout from "../components/TodoLayout";
 
-export default function WriteToDo() {
+function WriteToDo() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -82,4 +83,8 @@ export default function WriteToDo() {
       </section>
     </div>
   );
+}
+
+export default function WriteToDoPage() {
+  return <TodoLayout component={WriteToDo} />;
 }

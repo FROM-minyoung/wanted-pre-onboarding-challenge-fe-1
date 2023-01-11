@@ -1,5 +1,5 @@
 import Login from "../components/Login";
-import TodoLayout from "../pages/TodoLayout";
+import TodoLayout from "./../components/TodoLayout";
 import { screenStyle } from "./../styles/style";
 
 export default function Main() {
@@ -11,9 +11,8 @@ export default function Main() {
             <div className="text-[50px] mb-5">T O D O</div>
             <Login />
           </>
-        ) : (
-          <TodoLayout />
-        )}
+        ) : // <TodoLayout />
+        null}
       </div>
     </div>
   );
