@@ -4,8 +4,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
 import { editStore, todoStore } from "../store/todo.store";
+import TodoLayout from "./../components/TodoLayout";
 
-export default function TodoEdit() {
+function UpdateTodo() {
   const token = localStorage.getItem("key");
   const navigate = useNavigate();
   const { id } = useParams();
@@ -13,13 +14,6 @@ export default function TodoEdit() {
   const { setEditState } = editStore();
 
   const queryClient = useQueryClient();
-  //   const todosData = queryClient.getQueryData(["TodosDetail"]);
-
-  //   console.log(todosData);
-  //   //   const setData = () => {
-  //   //     setTitle(todosData?.data?.data.title);.
-  //   //     setContent(todosData?.data?.data.content);
-  //   //   };
 
   const { refetch } = useQuery(
     ["userTodo"],
@@ -110,4 +104,8 @@ export default function TodoEdit() {
       </section>
     </div>
   );
+}
+
+export default function UpdateToDoPage() {
+  return <TodoLayout component={UpdateTodo} />;
 }
