@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import TodoDetail from "./TodoDetail";
-import WriteToDo from "../pages/WriteToDo";
+// import TodoDetail from "../pages/TodoDetail";
+// import WriteToDo from "../pages/WriteToDo";
 import TodoList from "./TodoList";
 import { hoberButtonStyle, screenStyle } from "../styles/style";
 
@@ -10,7 +10,7 @@ import { editStore } from "../store/todo.store";
 // import TodoEdit from "../pages/TodoEdit";
 
 type FormType = {
-  component: () => JSX.Element;
+  component?: () => JSX.Element;
 };
 
 export default function TodoLayout({ component }: FormType) {
@@ -62,7 +62,7 @@ export default function TodoLayout({ component }: FormType) {
           ) : id ? (
             <TodoDetail />
           ) : null} */}
-          {component()}
+          {component && component()}
         </div>
       </div>
     </div>

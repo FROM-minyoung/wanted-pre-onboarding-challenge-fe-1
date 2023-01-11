@@ -11,8 +11,9 @@ export default function Main() {
             <div className="text-[50px] mb-5">T O D O</div>
             <Login />
           </>
-        ) : // <TodoLayout />
-        null}
+        ) : (
+          <TodoLayout component={undefined} />
+        )}
       </div>
     </div>
   );

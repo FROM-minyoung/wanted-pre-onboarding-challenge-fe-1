@@ -9,6 +9,7 @@ import TodoLayout from "./components/TodoLayout";
 import WriteToDoPage from "./pages/WriteToDo";
 
 import SignUp from "./pages/SignUp";
+import DetailToDoPage from "./pages/TodoDetail";
 
 const queryClient = new QueryClient();
 
@@ -21,8 +22,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           {/* <Route path="/todolist" element={<TodoLayout />} /> */}
           <Route path="/write" element={<WriteToDoPage />} />
-          {/* <Route path="/todolist/:id" element={<TodoLayout />} />
-          <Route path="/update/:id" element={<TodoLayout />} /> */}
+          <Route path="/todolist/:id" element={<DetailToDoPage />} />
+          {/*<Route path="/update/:id" element={<TodoLayout />} /> */}
 
           {/* <Route path="*" element={<404 페이지 넣기/>} /> */}
         </Routes>
