@@ -2,17 +2,9 @@ import React, { useEffect, useState } from "react";
 import api from "../api/customAxios";
 import { useNavigate } from "react-router-dom";
 import { Todo } from "../type/todo.type";
-import { todoStore, writeStore } from "../store/todo.store";
-import WriteToDo from "../pages/WriteToDo";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { editStore } from "./../store/todo.store";
+import { useQuery } from "@tanstack/react-query";
 
 export default function TodoList() {
-  const { setWriteState } = writeStore();
-  const { setEditState } = editStore();
-
-  const queryClient = useQueryClient();
-
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const token = localStorage.getItem("key");
@@ -40,8 +32,6 @@ export default function TodoList() {
   }, [todos, refetch]);
 
   const changeState = (e: React.MouseEvent<HTMLDivElement>) => {
-    setWriteState(false);
-    setEditState(false);
     navigate(`/todolist/${e.currentTarget?.id}`);
   };
 

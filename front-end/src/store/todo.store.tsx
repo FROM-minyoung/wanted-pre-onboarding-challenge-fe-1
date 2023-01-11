@@ -34,31 +34,3 @@ export const todoStore = create<TodoState>((set) => ({
       editContent,
     }),
 }));
-
-// write store
-interface WriteState {
-  writeState: boolean;
-  setWriteState: (writeState: boolean) => void;
-}
-
-export const writeStore = create<WriteState>((set) => ({
-  writeState: false,
-  setWriteState: (writeState) =>
-    set({
-      writeState,
-    }),
-}));
-
-// edit store
-interface EditState {
-  editState: boolean;
-  setEditState: (editState: boolean) => void;
-}
-
-export const editStore = create<EditState>((set) => ({
-  editState: false,
-  setEditState: (editState) =>
-    set({
-      editState,
-    }),
-}));

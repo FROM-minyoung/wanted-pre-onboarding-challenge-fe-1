@@ -1,16 +1,16 @@
-import { todoStore, writeStore } from "../store/todo.store";
 import api from "../api/customAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
+
 import TodoLayout from "../components/TodoLayout";
+import { todoStore } from "../store/todo.store";
 
 function WriteToDo() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const { title, setTitle, content, setContent } = todoStore();
-  const { setWriteState } = writeStore();
 
   const token = localStorage.getItem("key");
 
@@ -36,7 +36,6 @@ function WriteToDo() {
       onSuccess: ({ data }) => {
         setTitle("");
         setContent("");
-        setWriteState(false);
         navigate(`/todolist/${data.data.id}`);
         queryClient.invalidateQueries(["Todos"]);
       },
@@ -73,8 +72,7 @@ function WriteToDo() {
         </button>
         <button
           onClick={() => {
-            setWriteState(false);
-            navigate("/todolist");
+            navigate("/");
           }}
           className={hoberButtonStyle}
         >

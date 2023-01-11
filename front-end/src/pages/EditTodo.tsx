@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import api from "../api/customAxios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
-import { editStore, todoStore } from "../store/todo.store";
+import { todoStore } from "../store/todo.store";
 import TodoLayout from "./../components/TodoLayout";
 
 function UpdateTodo() {
@@ -11,7 +11,6 @@ function UpdateTodo() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { editTitie, editContent, setEditTitle, setEditContent } = todoStore();
-  const { setEditState } = editStore();
 
   const queryClient = useQueryClient();
 
@@ -57,7 +56,6 @@ function UpdateTodo() {
       ),
     {
       onSuccess: ({ data }) => {
-        setEditState(false);
         navigate(`/todolist/${data.data.id}`);
         queryClient.invalidateQueries(["Todos"]);
       },
@@ -94,7 +92,6 @@ function UpdateTodo() {
         </button>
         <button
           onClick={() => {
-            setEditState(false);
             navigate(`/todolist/${id}`);
           }}
           className={hoberButtonStyle}

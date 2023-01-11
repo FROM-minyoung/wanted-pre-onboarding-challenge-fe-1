@@ -4,13 +4,11 @@ import { Todo } from "../../../back-end/types/todos";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { hoberButtonStyle } from "../styles/style";
-import { editStore } from "../store/todo.store";
 import TodoLayout from "./../components/TodoLayout";
 
 function TodoDetail() {
   const token = localStorage.getItem("key");
   const [todoDetail, setTodoDetail] = useState<Todo>();
-  const { setEditState } = editStore();
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -48,7 +46,7 @@ function TodoDetail() {
     {
       onSuccess: () => {
         alert("삭제되었습니다.");
-        navigate("/todolist");
+        navigate("/");
       },
     }
   );
@@ -70,7 +68,6 @@ function TodoDetail() {
         <div className="flex items-end">
           <button
             onClick={() => {
-              setEditState(true);
               navigate(`/update/${id}`);
             }}
             className={`${hoberButtonStyle} text-sm text-gray-900 mr-3`}

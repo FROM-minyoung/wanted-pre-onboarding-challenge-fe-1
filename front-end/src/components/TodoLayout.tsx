@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-// import TodoDetail from "../pages/TodoDetail";
-// import WriteToDo from "../pages/WriteToDo";
 import TodoList from "./TodoList";
 import { hoberButtonStyle, screenStyle } from "../styles/style";
-
-import { writeStore } from "../store/todo.store";
-import { editStore } from "../store/todo.store";
-// import TodoEdit from "../pages/TodoEdit";
 
 type FormType = {
   component?: () => JSX.Element;
@@ -16,10 +10,6 @@ type FormType = {
 export default function TodoLayout({ component }: FormType) {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // const [writeState, setWriteState] = useState(false);
-  const { writeState, setWriteState } = writeStore();
-  const { editState } = editStore();
 
   // 로그아웃
   const handleLogout = () => {
@@ -41,7 +31,6 @@ export default function TodoLayout({ component }: FormType) {
         </button>
         <button
           onClick={() => {
-            setWriteState(true);
             navigate("/write");
           }}
           className={hoberButtonStyle}
@@ -54,16 +43,7 @@ export default function TodoLayout({ component }: FormType) {
           <TodoList />
         </div>
         <div className="my-5 border-r-[1px] border-black"></div>
-        <div className="flex-auto">
-          {/* {writeState ? (
-            <WriteToDo />
-          ) : editState ? (
-            <TodoEdit />
-          ) : id ? (
-            <TodoDetail />
-          ) : null} */}
-          {component && component()}
-        </div>
+        <div className="flex-auto">{component && component()}</div>
       </div>
     </div>
   );
