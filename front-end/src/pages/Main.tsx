@@ -4,10 +4,15 @@ import { screenStyle } from "./../styles/style";
 import { loginStore } from "./../store/todo.store";
 
 export default function Main() {
-  const { login } = loginStore();
+  const { login, setLogin } = loginStore();
+
+  // if (localStorage.getItem("key")) {
+  //   setLogin(true);
+  // }
+
   return (
     <div>
-      {login ? (
+      {localStorage.getItem("key") ? (
         <TodoLayout component={undefined} />
       ) : (
         <div className={screenStyle}>
