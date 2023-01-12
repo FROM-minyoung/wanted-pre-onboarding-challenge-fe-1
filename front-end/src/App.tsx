@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import WriteToDoPage from "./pages/WriteToDo";
 import DetailToDoPage from "./pages/TodoDetail";
 import UpdateToDoPage from "./pages/EditTodo";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,7 @@ function App() {
           <Route path="/todolist/:id" element={<DetailToDoPage />} />
           <Route path="/update/:id" element={<UpdateToDoPage />} />
 
-          {/* <Route path="*" element={<404 페이지 넣기/>} /> */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <ReactQueryDevtools initialIsOpen={false} />

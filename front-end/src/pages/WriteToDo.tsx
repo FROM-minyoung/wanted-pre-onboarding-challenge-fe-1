@@ -5,6 +5,7 @@ import { hoberButtonStyle } from "../styles/style";
 
 import TodoLayout from "../components/TodoLayout";
 import { todoStore } from "../store/todo.store";
+import checkToken from "./../api/CheckToken";
 
 function WriteToDo() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ function WriteToDo() {
   const { title, setTitle, content, setContent } = todoStore();
 
   const token = localStorage.getItem("key");
+
+  checkToken(token);
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget?.value);
