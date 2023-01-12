@@ -12,24 +12,24 @@ export default function SignUp() {
 
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
-  const [emailBoolean, setEmailBoolean] = useState(false);
+  const [isEmailCheck, setIsEmailCheck] = useState(false);
   const [password, setPassword] = useState<string>("");
-  const [pwBoolean, setPwBoolean] = useState(false);
+  const [isPasswordBoolean, setIsPasswordBoolean] = useState(false);
 
   const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
     if (emailReg.test(e.currentTarget.value)) {
-      setEmailBoolean(true);
+      setIsEmailCheck(true);
     } else {
-      setEmailBoolean(false);
+      setIsEmailCheck(false);
     }
   };
   const changePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
     if (e.currentTarget.value?.length >= 8) {
-      setPwBoolean(true);
+      setIsPasswordBoolean(true);
     } else {
-      setPwBoolean(false);
+      setIsPasswordBoolean(false);
     }
   };
 
@@ -61,13 +61,13 @@ export default function SignUp() {
               className={
                 email === ""
                   ? mainInputStyle
-                  : emailBoolean
+                  : isEmailCheck
                   ? correctInputStyle
                   : incorrectInputStyle
               }
             />
           </div>
-          {!emailBoolean ? (
+          {!isEmailCheck ? (
             <span className="text-left text-xs ml-14">
               이메일 형식에 맞게 입력해주세요.
             </span>
@@ -83,13 +83,13 @@ export default function SignUp() {
               className={
                 password === ""
                   ? mainInputStyle
-                  : pwBoolean
+                  : isPasswordBoolean
                   ? correctInputStyle
                   : incorrectInputStyle
               }
             />
           </div>
-          {!pwBoolean ? (
+          {!isPasswordBoolean ? (
             <span className="text-left text-xs ml-16">
               비밀번호는 8자 이상 입력해주세요.
             </span>
@@ -98,7 +98,7 @@ export default function SignUp() {
         <button
           onClick={SubmitUserInformation}
           className="text-sm mt-3 px-2 py-1.5 rounded-lg transition duration-200 disabled:text-gray-400"
-          disabled={!emailBoolean || !pwBoolean}
+          disabled={!isEmailCheck || !isPasswordBoolean}
         >
           가입하기
         </button>

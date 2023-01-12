@@ -3,11 +3,9 @@ import { useState } from "react";
 import api from "./../api/customAxios";
 import { mainButtonStyle, mainInputStyle } from "../styles/style";
 import { useMutation } from "@tanstack/react-query";
-import { loginStore } from "../store/todo.store";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setLogin } = loginStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,7 +26,6 @@ export default function Login() {
     {
       onSuccess: ({ data }) => {
         localStorage.setItem("key", data.token);
-        setLogin(true);
         alert(data.message);
         navigate("/");
       },
