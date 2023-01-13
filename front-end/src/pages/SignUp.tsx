@@ -14,6 +14,7 @@ export default function SignUp() {
   const [email, setEmail] = useState<string>("");
   const [isEmailCheck, setIsEmailCheck] = useState(false);
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [isPasswordBoolean, setIsPasswordBoolean] = useState(false);
 
   const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,9 +25,20 @@ export default function SignUp() {
       setIsEmailCheck(false);
     }
   };
+
   const changePw = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value);
-    if (e.currentTarget.value?.length >= 8) {
+    if (e.currentTarget.value.length < 8) {
+      setIsPasswordBoolean(false);
+    }
+  };
+
+  const checkPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.currentTarget.value);
+    if (
+      e.currentTarget.value.length >= 8 &&
+      password === e.currentTarget.value
+    ) {
       setIsPasswordBoolean(true);
     } else {
       setIsPasswordBoolean(false);
@@ -50,9 +62,9 @@ export default function SignUp() {
     <div className="max-w-screen-lg mt-52 m-auto">
       <div className="flex flex-col items-center">
         <div className="mb-5 text-[50px]">회원가입</div>
-        <div className="flex-col text-center">
+        <div className="flex-col text-left">
           <div className="flex items-center">
-            <span className="w-16 text-sm">이메일</span>
+            <span className="w-24 text-sm">이메일</span>
             <input
               type="text"
               value={email}
@@ -67,14 +79,9 @@ export default function SignUp() {
               }
             />
           </div>
-          {!isEmailCheck ? (
-            <span className="text-left text-xs ml-14">
-              이메일 형식에 맞게 입력해주세요.
-            </span>
-          ) : null}
 
           <div className="flex items-center">
-            <span className="w-16 text-sm">비밀번호</span>
+            <span className="w-24 text-sm">비밀번호</span>
             <input
               type="password"
               value={password}
@@ -89,15 +96,26 @@ export default function SignUp() {
               }
             />
           </div>
-          {!isPasswordBoolean ? (
-            <span className="text-left text-xs ml-16">
-              비밀번호는 8자 이상 입력해주세요.
-            </span>
-          ) : null}
+          <div className="flex items-center">
+            <span className="w-24 text-sm">비밀번호 확인</span>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={checkPassword}
+              placeholder="비밀번호를 한번 더 입력해주세요."
+              className={
+                password === ""
+                  ? mainInputStyle
+                  : isPasswordBoolean
+                  ? correctInputStyle
+                  : incorrectInputStyle
+              }
+            />
+          </div>
         </div>
         <button
           onClick={SubmitUserInformation}
-          className="text-sm mt-3 px-2 py-1.5 rounded-lg transition duration-200 disabled:text-gray-400"
+          className="text-sm mt-3 px-2 py-1.5 rounded-lg transition duration-200 hover:underline disabled:text-gray-400 disabled:cursor-not-allowed disabled:hover:no-underline"
           disabled={!isEmailCheck || !isPasswordBoolean}
         >
           가입하기
